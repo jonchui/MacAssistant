@@ -211,30 +211,13 @@ extension AssistantViewController: NSCollectionViewDataSource, NSCollectionViewD
         return item
     }
 
-    // gets multi-line when returning google's, but cutoff like this:
-    // https://www.dropbox.com/s/syu9fegg490mzez/Screenshot%202020-01-11%2015.34.08.png?dl=0
-//    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-//
-//        let string = conversation[indexPath.item].text
-//        let size = NSTextField(labelWithString: string).sizeThatFits(NSSize(width: 400, height: 800))
-//        Log.trace("size for \(string)\n:\(size)")
-//        return NSSize(width: 400, height: size.height > 80 ? size.height : 80)
-//    }
-
-    // This still shows nothing on screen weird. 
-        func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-            let item = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath) as! ConversationItem
-            if let item = item as? ConversationItem {
-                item.loadData(data: conversation[indexPath.item])
-                let width = item.textField!.frame.size.width
-                let newSize = item.textField!.sizeThatFits(NSSize(width: width, height: .greatestFiniteMagnitude))
-                item.textField?.frame.size = NSSize(width: 300, height: newSize.height)
-                print(item.textField!.frame.size)
-                return item.textField!.frame.size
-            }
-    //
-    //        print("here 2")
-            return NSSize(width: 300, height: 30)
-    //
-        }
+    // THIS STILLL DOES NOT WORK! in fact, makes it so that nothing shows up
+    public func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+        let cell = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath) as! ConversationItem
+        cell.loadData(data: conversation[indexPath.item])
+        var intrinsicTextFieldContentSize = cell.textField!.intrinsicContentSize
+        intrinsicTextFieldContentSize.width = 300
+        print(intrinsicTextFieldContentSize)
+        return intrinsicTextFieldContentSize
+    }
 }

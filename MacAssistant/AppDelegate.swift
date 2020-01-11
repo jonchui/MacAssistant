@@ -13,6 +13,7 @@ import Log
 import AudioKit
 import SwiftyUserDefaults
 import Preferences
+import Magnet
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
@@ -41,7 +42,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
         statusItem.image = #imageLiteral(resourceName: "statusIcon")
         statusItem.action = #selector(toggleWindow)
         showAppropriateWindow()
-//        preferencesWindowController.showWindow()
+        preferencesWindowController.showWindow()
+
+        // register hotkey
+        if let keyCombo = KeyCombo(doubledCocoaModifiers: .command) {
+            let hotKey = HotKey(identifier: "CommandDoubleTap", keyCombo: keyCombo, target: self, action: #selector(doubleCommandHotKey))
+           HotKeyCenter.shared.register(with: hotKey)
+
+        }
+    }
+
+    @objc func doubleCommandHotKey() {
+        // for some reason, this only works when appdidFinishlaunching, while prefernce window open. then when you close no longer calls
+        Log.debug("double command key hit")
+        showAppropriateWindow()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

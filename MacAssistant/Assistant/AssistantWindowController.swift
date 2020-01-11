@@ -16,6 +16,8 @@ class AssistantWindowController: NSWindowController {
         if !Defaults[.allowWindowLoseFocus] {
             window?.level = .floating
             window?.orderFrontRegardless()
+        } else {
+            window?.level = .normal
         }
     }
 }

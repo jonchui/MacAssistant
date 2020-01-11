@@ -24,14 +24,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     var streamCall: AssistCall!
     let authenticator = Authenticator.instance
 
-    let hotKey = HotKey(key: .space, modifiers: [.command, .shift])
+    let hotKeyStartTalking = HotKey(key: .space, modifiers: [.command, .shift])
+    let hotKeyStartTyping = HotKey(key: .space, modifiers: [.command, .control, .option])
+
     let sb = NSStoryboard(name: "Main", bundle: nil)
     let assitantWindowControllerID = "AssistantWindowControllerID"
     let loginWindowControllerID = "LoginWindowControllerID"
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     lazy var awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
     lazy var lwc = sb.instantiateController(withIdentifier: loginWindowControllerID) as! LoginWindowController
-    
+    lazy var assistantVC = (awc.contentViewController as! AssistantViewController)
+
     lazy var preferencesWindowController = PreferencesWindowController(viewControllers: [
             GeneralPreferenceViewController(),
             AppearancePreferenceViewController(),
@@ -43,15 +46,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
         statusItem.image = #imageLiteral(resourceName: "statusIcon")
         statusItem.action = #selector(toggleWindow)
         showAppropriateWindow()
-        preferencesWindowController.showWindow()
+        registerHotKeys()
+    }
 
-        // register hotkey
-        hotKey.keyDownHandler = {
+    fileprivate func registerHotKeys() {
+        hotKeyStartTyping.keyDownHandler = {
+            self.Log.trace("hot key to start typing")
             self.showAppropriateWindow()
-            (self.awc.contentViewController as! AssistantViewController).onMicClicked()
+            self.assistantVC.keyboardInputField.becomeFirstResponder()
+        }
 
+        hotKeyStartTalking.keyDownHandler = {
+            self.Log.trace("hot key to start talking")
+            self.showAppropriateWindow()
+            self.assistantVC.onMicClicked()
+            self.preferencesWindowController.showWindow()
         }
     }
+    
 
     @objc func doubleCommandHotKey() {
         // for some reason, this only works when appdidFinishlaunching, while prefernce window open. then when you close no longer calls
@@ -90,6 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     }
     
     func showAssistant() {
+        NSApp.activate(ignoringOtherApps: true)
         awc.showWindow(nil)
     }
     

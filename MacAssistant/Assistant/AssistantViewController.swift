@@ -210,7 +210,15 @@ extension AssistantViewController: NSCollectionViewDataSource, NSCollectionViewD
         item.loadData(data: conversation[indexPath.item])
         return item
     }
-    
+
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+
+        let string = conversation[indexPath.item].text
+        let size = NSTextField(labelWithString: string).sizeThatFits(NSSize(width: 400, height: 800))
+        Log.trace("size for \(string)\n:\(size)")
+        return NSSize(width: 400, height: size.height > 80 ? size.height : 80)
+    }
+
     //    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
     //
     //

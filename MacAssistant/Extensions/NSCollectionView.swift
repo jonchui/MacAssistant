@@ -12,6 +12,7 @@ extension NSCollectionView {
     public func reloadBackground() {
         DispatchQueue.main.async {
             self.reloadData()
+            self.scrollToBottom(animated: true)
         }
     }
 }

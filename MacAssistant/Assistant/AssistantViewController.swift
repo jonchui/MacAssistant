@@ -17,6 +17,25 @@ import SwiftyUserDefaults
 // New Assistant.swift should handle business logic of mic/follow up/audio/
 
 
+extension NSCollectionView {
+
+  func scrollToBottom(animated: Bool) {
+
+      let sections = self.numberOfSections
+
+      if sections > 0 {
+
+          let rows = self.numberOfItems(inSection: sections - 1)
+
+          let last = IndexPath(item: rows - 1, section: sections - 1)
+
+          DispatchQueue.main.async {
+
+            self.scrollToItems(at: [last], scrollPosition: .bottom)
+          }
+      }
+   }
+}
 
 class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegate {
     
@@ -139,6 +158,11 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
             onDoneListening()
         }
     }
+
+    fileprivate func scollToBottom() {
+        let lastIndexPath = Set([IndexPath(item: conversation.count-1, section: 0)])
+        conversationCollectionView.scrollToItems(at: lastIndexPath, scrollPosition: .bottom)
+    }
 }
 
 // UI Actions
@@ -150,8 +174,7 @@ extension AssistantViewController {
             micWasUsed = false
             conversation.append(ConversationEntry(isFromUser: true, text: query))
             conversationCollectionView.reloadData()
-            let lastIndexPath = Set([IndexPath(item: conversation.count-1, section: 0)])
-            conversationCollectionView.scrollToItems(at: lastIndexPath, scrollPosition: .bottom)
+            scollToBottom()
             assistant.sendTextQuery(text: query, delegate: self)
             keyboardInputField.stringValue = ""
         }

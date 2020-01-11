@@ -211,45 +211,29 @@ extension AssistantViewController: NSCollectionViewDataSource, NSCollectionViewD
         return item
     }
 
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+    // gets multi-line when returning google's, but cutoff like this:
+    // https://www.dropbox.com/s/syu9fegg490mzez/Screenshot%202020-01-11%2015.34.08.png?dl=0
+//    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+//
+//        let string = conversation[indexPath.item].text
+//        let size = NSTextField(labelWithString: string).sizeThatFits(NSSize(width: 400, height: 800))
+//        Log.trace("size for \(string)\n:\(size)")
+//        return NSSize(width: 400, height: size.height > 80 ? size.height : 80)
+//    }
 
-        let string = conversation[indexPath.item].text
-        let size = NSTextField(labelWithString: string).sizeThatFits(NSSize(width: 400, height: 800))
-        Log.trace("size for \(string)\n:\(size)")
-        return NSSize(width: 400, height: size.height > 80 ? size.height : 80)
-    }
-
-    //    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-    //
-    //
-    //        let myNib = NSNib(nibNamed: "ConversationItem", bundle: nil)!
-    //        var myArray: NSArray!
-    //        myNib.instantiate(withOwner: ConversationItem.self, topLevelObjects: &myArray) // instantiate view and put in myArray
-    //        var item: ConversationItem? = nil
-    //        for i in myArray {
-    //            if let i = i as? ConversationItem {
-    //                item = i
-    //            }
-    //        }
-    ////        let item = myArray[2] as! ConversationItem
-    //
-    ////        Bundle.main.loadNibNamed("ConversationItem", owner: self, topLevelObjects: &myArray)
-    ////        let picker = NSBundle.mainBundle().loadNibNamed("advancedCellView", owner: nil, options: nil)
-    ////        let item = myArray[0] as! ConversationItem
-    //
-    ////        let item = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: IndexPath(item: 0, section: 0)) as! ConversationItem
-    ////        let item = collectionView.item(at: indexPath)
-    //        if let item = item as ConversationItem? {
-    //            item.loadData(data: conversation[indexPath.item])
-    //            let width = item.textField!.frame.size.width
-    //            let newSize = item.textField!.sizeThatFits(NSSize(width: width, height: .greatestFiniteMagnitude))
-    //            item.textField?.frame.size = NSSize(width: 300, height: newSize.height)
-    //            print(item.textField!.frame.size)
-    //            return item.textField!.frame.size
-    //        }
+        func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+            let item = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath) as! ConversationItem
+            if let item = item as? ConversationItem {
+                item.loadData(data: conversation[indexPath.item])
+                let width = item.textField!.frame.size.width
+                let newSize = item.textField!.sizeThatFits(NSSize(width: width, height: .greatestFiniteMagnitude))
+                item.textField?.frame.size = NSSize(width: 300, height: newSize.height)
+                print(item.textField!.frame.size)
+                return item.textField!.frame.size
+            }
     //
     //        print("here 2")
-    //        return NSSize(width: 300, height: 30)
+            return NSSize(width: 300, height: 30)
     //
-    //    }
+        }
 }

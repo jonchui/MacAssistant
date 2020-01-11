@@ -221,6 +221,7 @@ extension AssistantViewController: NSCollectionViewDataSource, NSCollectionViewD
 //        return NSSize(width: 400, height: size.height > 80 ? size.height : 80)
 //    }
 
+    // This still shows nothing on screen weird. 
         func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
             let item = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath) as! ConversationItem
             if let item = item as? ConversationItem {

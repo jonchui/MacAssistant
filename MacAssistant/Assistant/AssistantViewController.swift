@@ -19,22 +19,22 @@ import SwiftyUserDefaults
 
 extension NSCollectionView {
 
-  func scrollToBottom(animated: Bool) {
+    func scrollToBottom(animated: Bool) {
 
-      let sections = self.numberOfSections
+        let sections = self.numberOfSections
 
-      if sections > 0 {
+        if sections > 0 {
 
-          let rows = self.numberOfItems(inSection: sections - 1)
+            let rows = self.numberOfItems(inSection: sections - 1)
 
-          let last = IndexPath(item: rows - 1, section: sections - 1)
+            let last = IndexPath(item: rows - 1, section: sections - 1)
 
-          DispatchQueue.main.async {
+            DispatchQueue.main.async {
 
-            self.scrollToItems(at: [last], scrollPosition: .bottom)
-          }
-      }
-   }
+                self.scrollToItems(at: [last], scrollPosition: .bottom)
+            }
+        }
+    }
 }
 
 class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegate {
@@ -174,7 +174,10 @@ extension AssistantViewController {
             micWasUsed = false
             conversation.append(ConversationEntry(isFromUser: true, text: query))
             conversationCollectionView.reloadData()
-            scollToBottom()
+            DispatchQueue.main.async {
+                // This needs to be called on async, so that next run loop it actually scrolls. otherwise, it won't scroll
+                self.scollToBottom()
+            }
             assistant.sendTextQuery(text: query, delegate: self)
             keyboardInputField.stringValue = ""
         }
@@ -212,12 +215,12 @@ extension AssistantViewController: NSCollectionViewDataSource, NSCollectionViewD
     }
 
     // THIS STILLL DOES NOT WORK! in fact, makes it so that nothing shows up
-    public func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        let cell = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath) as! ConversationItem
-        cell.loadData(data: conversation[indexPath.item])
-        var intrinsicTextFieldContentSize = cell.textField!.intrinsicContentSize
-        intrinsicTextFieldContentSize.width = 300
-        print(intrinsicTextFieldContentSize)
-        return intrinsicTextFieldContentSize
-    }
+//    public func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+//        let cell = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath) as! ConversationItem
+//        cell.loadData(data: conversation[indexPath.item])
+//        var intrinsicTextFieldContentSize = cell.textField!.intrinsicContentSize
+//        intrinsicTextFieldContentSize.width = 300
+//        print(intrinsicTextFieldContentSize)
+//        return intrinsicTextFieldContentSize
+//    }
 }

@@ -34,7 +34,6 @@
 		588AAEFD21142B390030AE52 /* embedded_assistant.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAEF721142B390030AE52 /* embedded_assistant.pb.swift */; };
 		588AAEFE21142B390030AE52 /* latlng.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAEF921142B390030AE52 /* latlng.pb.swift */; };
 		588AAEFF21142B390030AE52 /* status.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAEFB21142B390030AE52 /* status.pb.swift */; };
-		588AAF0121142C330030AE52 /* google_oauth.json in Resources */ = {isa = PBXBuildFile; fileRef = 588AAF0021142C330030AE52 /* google_oauth.json */; };
 		588AAF0521143DFF0030AE52 /* LoginWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAF0421143DFF0030AE52 /* LoginWindowController.swift */; };
 		588AAF0B211443590030AE52 /* AssistantWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAF0A211443590030AE52 /* AssistantWindowController.swift */; };
 		58D7382E2115627A00D55D90 /* LoginSuccessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D7382D2115627A00D55D90 /* LoginSuccessDelegate.swift */; };
@@ -42,6 +41,7 @@
 		58D7383221162DC500D55D90 /* ConversationEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D7383121162DC500D55D90 /* ConversationEntry.swift */; };
 		58D73835211630AC00D55D90 /* ConversationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D73833211630AC00D55D90 /* ConversationItem.swift */; };
 		58D73836211630AC00D55D90 /* ConversationItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58D73834211630AC00D55D90 /* ConversationItem.xib */; };
+		A774587823C99AAA0011ECA8 /* google_oauth.json in Resources */ = {isa = PBXBuildFile; fileRef = A774587723C99AAA0011ECA8 /* google_oauth.json */; };
 		F78A4B0538CCF92EDB2E20CA /* Pods_MacAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C2C59A5FFED26A3F40BE2A /* Pods_MacAssistant.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +77,6 @@
 		588AAEF721142B390030AE52 /* embedded_assistant.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embedded_assistant.pb.swift; sourceTree = "<group>"; };
 		588AAEF921142B390030AE52 /* latlng.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = latlng.pb.swift; sourceTree = "<group>"; };
 		588AAEFB21142B390030AE52 /* status.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = status.pb.swift; sourceTree = "<group>"; };
-		588AAF0021142C330030AE52 /* google_oauth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = google_oauth.json; sourceTree = "<group>"; };
 		588AAF0421143DFF0030AE52 /* LoginWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWindowController.swift; sourceTree = "<group>"; };
 		588AAF0A211443590030AE52 /* AssistantWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantWindowController.swift; sourceTree = "<group>"; };
 		58D7382D2115627A00D55D90 /* LoginSuccessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 		58D73833211630AC00D55D90 /* ConversationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationItem.swift; sourceTree = "<group>"; };
 		58D73834211630AC00D55D90 /* ConversationItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationItem.xib; sourceTree = "<group>"; };
 		741C6460B9DAC9EEF984BEB6 /* Pods-MacAssistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacAssistant.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant.debug.xcconfig"; sourceTree = "<group>"; };
+		A774587723C99AAA0011ECA8 /* google_oauth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = google_oauth.json; sourceTree = "<group>"; };
 		C0392D4A8B3A4D6F1146204B /* Pods-MacAssistant.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacAssistant.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,8 +245,8 @@
 		588AAF08211442CA0030AE52 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				A774587723C99AAA0011ECA8 /* google_oauth.json */,
 				588AAEE321142ACE0030AE52 /* DefaultsKeys.swift */,
-				588AAF0021142C330030AE52 /* google_oauth.json */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -350,12 +350,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				588AAF0121142C330030AE52 /* google_oauth.json in Resources */,
 				588AAED82114299F0030AE52 /* Assets.xcassets in Resources */,
 				584957AD218AD8DD0021602E /* AccountPreferenceView.xib in Resources */,
 				584957A8218AD7F10021602E /* GeneralPreferenceView.xib in Resources */,
 				588AAEDB2114299F0030AE52 /* Main.storyboard in Resources */,
 				584957AC218AD8DD0021602E /* AudioPreferenceView.xib in Resources */,
+				A774587823C99AAA0011ECA8 /* google_oauth.json in Resources */,
 				58D73836211630AC00D55D90 /* ConversationItem.xib in Resources */,
 				584957AE218AD8DD0021602E /* AppearancePreferenceView.xib in Resources */,
 			);
@@ -370,7 +370,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/KeyHolder/KeyHolder.framework",
@@ -401,7 +401,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C7E9E81A23AFF389BD5A7991 /* [CP] Check Pods Manifest.lock */ = {
@@ -603,7 +603,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanshgandhi.MacAssistant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -624,7 +624,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanshgandhi.MacAssistant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

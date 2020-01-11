@@ -13,7 +13,7 @@ import Log
 import AudioKit
 import SwiftyUserDefaults
 import Preferences
-import Magnet
+import HotKey
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
@@ -23,7 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     var audioEngine: AudioEngine!
     var streamCall: AssistCall!
     let authenticator = Authenticator.instance
-    
+
+    let hotKey = HotKey(key: .space, modifiers: [.command, .shift])
     let sb = NSStoryboard(name: "Main", bundle: nil)
     let assitantWindowControllerID = "AssistantWindowControllerID"
     let loginWindowControllerID = "LoginWindowControllerID"
@@ -45,9 +46,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
         preferencesWindowController.showWindow()
 
         // register hotkey
-        if let keyCombo = KeyCombo(doubledCocoaModifiers: .command) {
-            let hotKey = HotKey(identifier: "CommandDoubleTap", keyCombo: keyCombo, target: self, action: #selector(doubleCommandHotKey))
-           HotKeyCenter.shared.register(with: hotKey)
+        hotKey.keyDownHandler = {
+            self.showAppropriateWindow()
+            (self.awc.contentViewController as! AssistantViewController).onMicClicked()
 
         }
     }

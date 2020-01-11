@@ -175,7 +175,7 @@ open class Logger {
      - parameter function:   The function in which the log happens.
      */
     private func log(_ level: Level, _ items: [Any], _ separator: String, _ terminator: String, _ file: String, _ line: Int, _ column: Int, _ function: String) {
-        guard enabled && level >= minLevel else { return }
+//        guard enabled && level >= minLevel else { return }
         
         let date = Date()
         

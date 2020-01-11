@@ -14,15 +14,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView focusRingType="none" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="325" height="22"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="325" height="50"/>
             <subviews>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgz-1b-Tnc">
-                    <rect key="frame" x="-2" y="0.0" width="329" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="dZM-bw-1cX"/>
-                    </constraints>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" placeholderIntrinsicWidth="325" placeholderIntrinsicHeight="16" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgz-1b-Tnc">
+                    <rect key="frame" x="-2" y="34" width="329" height="16"/>
                     <textFieldCell key="cell" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" allowsEditingTextAttributes="YES" id="ql1-6z-Zs9">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

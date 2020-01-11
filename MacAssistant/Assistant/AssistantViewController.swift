@@ -19,22 +19,22 @@ import SwiftyUserDefaults
 
 extension NSCollectionView {
 
-  func scrollToBottom(animated: Bool) {
+    func scrollToBottom(animated: Bool) {
 
-      let sections = self.numberOfSections
+        let sections = self.numberOfSections
 
-      if sections > 0 {
+        if sections > 0 {
 
-          let rows = self.numberOfItems(inSection: sections - 1)
+            let rows = self.numberOfItems(inSection: sections - 1)
 
-          let last = IndexPath(item: rows - 1, section: sections - 1)
+            let last = IndexPath(item: rows - 1, section: sections - 1)
 
-          DispatchQueue.main.async {
+            DispatchQueue.main.async {
 
-            self.scrollToItems(at: [last], scrollPosition: .bottom)
-          }
-      }
-   }
+                self.scrollToItems(at: [last], scrollPosition: .bottom)
+            }
+        }
+    }
 }
 
 class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegate {
@@ -174,7 +174,10 @@ extension AssistantViewController {
             micWasUsed = false
             conversation.append(ConversationEntry(isFromUser: true, text: query))
             conversationCollectionView.reloadData()
-            scollToBottom()
+            DispatchQueue.main.async {
+                // This needs to be called on async, so that next run loop it actually scrolls. otherwise, it won't scroll
+                self.scollToBottom()
+            }
             assistant.sendTextQuery(text: query, delegate: self)
             keyboardInputField.stringValue = ""
         }
@@ -210,38 +213,14 @@ extension AssistantViewController: NSCollectionViewDataSource, NSCollectionViewD
         item.loadData(data: conversation[indexPath.item])
         return item
     }
-    
-    //    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-    //
-    //
-    //        let myNib = NSNib(nibNamed: "ConversationItem", bundle: nil)!
-    //        var myArray: NSArray!
-    //        myNib.instantiate(withOwner: ConversationItem.self, topLevelObjects: &myArray) // instantiate view and put in myArray
-    //        var item: ConversationItem? = nil
-    //        for i in myArray {
-    //            if let i = i as? ConversationItem {
-    //                item = i
-    //            }
-    //        }
-    ////        let item = myArray[2] as! ConversationItem
-    //
-    ////        Bundle.main.loadNibNamed("ConversationItem", owner: self, topLevelObjects: &myArray)
-    ////        let picker = NSBundle.mainBundle().loadNibNamed("advancedCellView", owner: nil, options: nil)
-    ////        let item = myArray[0] as! ConversationItem
-    //
-    ////        let item = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: IndexPath(item: 0, section: 0)) as! ConversationItem
-    ////        let item = collectionView.item(at: indexPath)
-    //        if let item = item as ConversationItem? {
-    //            item.loadData(data: conversation[indexPath.item])
-    //            let width = item.textField!.frame.size.width
-    //            let newSize = item.textField!.sizeThatFits(NSSize(width: width, height: .greatestFiniteMagnitude))
-    //            item.textField?.frame.size = NSSize(width: 300, height: newSize.height)
-    //            print(item.textField!.frame.size)
-    //            return item.textField!.frame.size
-    //        }
-    //
-    //        print("here 2")
-    //        return NSSize(width: 300, height: 30)
-    //
-    //    }
+
+    // THIS STILLL DOES NOT WORK! in fact, makes it so that nothing shows up
+//    public func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+//        let cell = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath) as! ConversationItem
+//        cell.loadData(data: conversation[indexPath.item])
+//        var intrinsicTextFieldContentSize = cell.textField!.intrinsicContentSize
+//        intrinsicTextFieldContentSize.width = 300
+//        print(intrinsicTextFieldContentSize)
+//        return intrinsicTextFieldContentSize
+//    }
 }

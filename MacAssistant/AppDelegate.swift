@@ -52,8 +52,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     fileprivate func registerHotKeys() {
         hotKeyStartTyping.keyDownHandler = {
             self.Log.trace("hot key to start typing")
-            self.showAppropriateWindow()
-            self.assistantVC.keyboardInputField.becomeFirstResponder()
+
+            if self.awc.window?.isVisible ?? false || self.lwc.window?.isVisible ?? false {
+                self.hideAppropriateWindow()
+            } else {
+                self.showAppropriateWindow()
+                self.assistantVC.keyboardInputField.becomeFirstResponder()
+            }
         }
 
         hotKeyStartTalking.keyDownHandler = {

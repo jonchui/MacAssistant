@@ -57,7 +57,8 @@ public class Authenticator {
                 let json = JSON(value)
                 if let err = json["error"].string {
                     self.Log.debug("\(err): \(json["error_description"].string ?? "no error msg")")
-                    onLoginResult(NSError())
+                    let error = NSError(domain:err, code: 400, userInfo: nil)
+                    onLoginResult(error)
                     return
                 }
                 

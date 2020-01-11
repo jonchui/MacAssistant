@@ -23,12 +23,21 @@ class LoginViewController: NSViewController, WKNavigationDelegate {
         loadLoginUrl()
     }
 
+
+    fileprivate func getQueryStringParameter(url: String, param: String) -> String? {
+        guard let url = URLComponents(string: url) else { return nil }
+        return url.queryItems?.first(where: { $0.name == param })?.value
+    }
+
+    fileprivate func getCodeFromUrl(url : String)  -> String? {
+        return getQueryStringParameter(url: url, param: "code")
+    }
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url?.absoluteString {
             if url.hasPrefix("http://localhost") { // TODO: Un-hardcode this
                 decisionHandler(.cancel)
-                if let index = url.index(of: "=") {
-                    let code = String(url[url.index(index, offsetBy: 1)...])
+                if let code = getCodeFromUrl(url: url) {
                     authenticator.authenticate(code: code) { err in
                         if let err = err {
                             self.Log.error("Error: \(err)")
@@ -36,8 +45,8 @@ class LoginViewController: NSViewController, WKNavigationDelegate {
                             self.loadNextScreen()
                         }
                     }
-                }
                 return
+                }
             }
         } else {
             Log.debug("invalid login url")
